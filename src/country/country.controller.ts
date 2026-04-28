@@ -16,45 +16,35 @@ export class CountryController {
         return this.countryService.uploadImage(id, file);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-  /* 
-   @Get()
-    findAll() {
-        return this.countryService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.countryService.findOne(id);
-    }
-
-    @Post()
+    @Post('add')
     create(@Body() data: Partial<Country>) {
         return this.countryService.create(data);
     }
 
-    /* @Put(':id')
-     update(@Param('id') id: string, @Body() data: Partial<Country>) {
-       return this.countryService.update(id, data);
-     }
-   
 
-    @Delete(':id')
+    @Get('all')
+    findAll() {
+        return this.countryService.findAll();
+    }
+
+    @Get(':id/find')
+    findOne(@Param('id') id: number) {
+        return this.countryService.findOne(id);
+    }
+
+
+   @Put(':id/update')
+    update(@Param('id') id: number, @Body() data: Partial<Country>) {
+        return this.countryService.update(id, data);
+    }
+
+
+    @Delete(':id/delete')
     remove(@Param('id') id: number) {
         return this.countryService.remove(id);
     }
-*/
-   
+
+
 
 
 

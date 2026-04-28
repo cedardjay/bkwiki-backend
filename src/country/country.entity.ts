@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Unique, PrimaryGeneratedColumn, Column, } from 'typeorm';
 
 @Entity()
+@Unique(['name', 'suffix'])  // Both together must be unique
 export class Country {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment') //can use uuid, then change id type to string
   id: number;
 
   @Column()
