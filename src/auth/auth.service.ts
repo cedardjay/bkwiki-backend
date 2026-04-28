@@ -12,20 +12,21 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(dto: RegisterDto) {
+ async register(dto: RegisterDto) {
   const existing = await this.usersService.findByEmail(dto.email);
-  if (existing) throw new ConflictException('Email is already in use');
+  if (existing) throw new ConflictException('Email already in use');
 
   const hashedPassword = await bcrypt.hash(dto.password, 12);
   const user = await this.usersService.create({
-    name: dto.name,
+    firstName: dto.firstName,
+    lastName: dto.lastName,
     email: dto.email,
     password: hashedPassword,
   });
 
   const token = this.jwtService.sign({ sub: user.id, email: user.email });
   return {
-    statusCode: 200,
+    statusCode: 201,
     message: 'User registered successfully',
     data: { access_token: token },
   };
@@ -40,7 +41,7 @@ export class AuthService {
 
   const token = this.jwtService.sign({ sub: user.id, email: user.email });
   return {
-    statusCode: 200,
+    statusCode: 201,
     message: 'Login successful',
     data: { access_token: token },
   };
