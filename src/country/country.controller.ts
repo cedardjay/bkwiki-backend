@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CountryService } from './country.service';
 import { Country } from './country.entity';
 
-@Controller('country')
+@Controller('countries')
 export class CountryController {
     constructor(private countryService: CountryService) { }
 
