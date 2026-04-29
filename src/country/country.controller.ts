@@ -7,7 +7,7 @@ import { Country } from './country.entity';
 export class CountryController {
     constructor(private countryService: CountryService) { }
 
-    @Patch(':id/image')
+    @Patch('image/:id')
     @UseInterceptors(FileInterceptor('image'))
     uploadImage(
         @Param('id') id: number,
@@ -33,13 +33,13 @@ export class CountryController {
     }
 
 
-   @Put(':id/update')
+   @Put('update/:id')
     update(@Param('id') id: number, @Body() data: Partial<Country>) {
         return this.countryService.update(id, data);
     }
 
 
-    @Delete(':id/delete')
+    @Delete('delete/:id')
     remove(@Param('id') id: number) {
         return this.countryService.remove(id);
     }
