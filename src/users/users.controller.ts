@@ -7,7 +7,6 @@ import { User } from './users.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
- // MODIFY THE USER SERVICE TO SEND DTO INSTEAD
  
  @Get('all')
   findAll() {
@@ -22,17 +21,17 @@ export class UsersController {
   }
 
 
-  @Put(':id/update')
+  @Put('update/:id')
   update(@Param('id') id: number, @Body() data: Partial<User>) {
     return this.usersService.update(id, data);
   }
 
-  @Delete(':id/delete')
+  @Delete('delete/:id')
   remove(@Param('id') id: number) {
     return this.usersService.remove(id);
   }
 
-  @Patch(':id/image')
+  @Patch('image/:id')
   @UseInterceptors(FileInterceptor('image'))
   uploadImage(
     @Param('id') id: number,

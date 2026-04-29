@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, InternalServerErrorException } from '@ne
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
+import { UserDto } from './users.dto';
 import { FileUploadService } from '../common/services/file-upload.service';
 import { ResponseDto } from '../common/response.dto';
 
@@ -13,10 +14,7 @@ export class UsersService {
     private fileUploadService: FileUploadService,
   ) {}
 
-// MODIFY THIS USER SERVICE TO SEND DTO INSTEAD OF USER
 
-
-//called in authController
   async findByEmail(email: string): Promise<User | null> {
     return this.usersRepository.findOne({ where: { email } });
   }
@@ -35,25 +33,24 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  //called in usersController
-
-  async findAll(): Promise<ResponseDto<User[]>> {
+async findAll(): Promise<ResponseDto<UserDto[]>> {
   const users = await this.usersRepository.find();
-  return new ResponseDto(200, 'Users retrieved successfully', users);
+  return new ResponseDto(200, 'Users retrieved successfully', users.map(UserDto.fromEntity));
 }
-
-async findOne(id: number): Promise<ResponseDto<User>> {
+  
+async findOne(id: number): Promise<ResponseDto<UserDto>> {
   const user = await this.usersRepository.findOne({ where: { id } });
   if (!user) throw new NotFoundException(`User with ID ${id} not found`);
-  return new ResponseDto(200, 'User retrieved successfully', user);
+  return new ResponseDto(200, 'User retrieved successfully', UserDto.fromEntity(user));
 }
 
-async update(id: number, data: Partial<User>): Promise<ResponseDto<User>> {
+
+async update(id: number, data: Partial<User>): Promise<ResponseDto<UserDto>> {
   const user = await this.usersRepository.findOne({ where: { id } });
   if (!user) throw new NotFoundException(`User with ID ${id} not found`);
   Object.assign(user, data);
   const updated = await this.usersRepository.save(user);
-  return new ResponseDto(200, 'User updated successfully', updated);
+  return new ResponseDto(200, 'User updated successfully', UserDto.fromEntity(updated));
 }
 
 async remove(id: number): Promise<ResponseDto<null>> {

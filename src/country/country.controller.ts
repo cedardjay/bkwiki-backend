@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CountryService } from './country.service';
 import { Country } from './country.entity';
 
-@Controller('country')
+@Controller('countries')
 export class CountryController {
     constructor(private countryService: CountryService) { }
 
@@ -27,13 +27,13 @@ export class CountryController {
         return this.countryService.findAll();
     }
 
-    @Get(':id/find')
+    @Get(':id')
     findOne(@Param('id') id: number) {
         return this.countryService.findOne(id);
     }
 
 
-   @Put(':id/update')
+    @Put(':id/update')
     update(@Param('id') id: number, @Body() data: Partial<Country>) {
         return this.countryService.update(id, data);
     }
