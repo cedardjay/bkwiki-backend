@@ -10,13 +10,12 @@ import { CountryModule } from './country/country.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '12345678',
-      database: 'bkwiki_db',
+      url: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // auto-creates tables, disable in production
+      synchronize: true,
     }),
     AuthModule,
     UsersModule,
