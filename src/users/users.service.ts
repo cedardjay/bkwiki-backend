@@ -2,9 +2,9 @@ import { Injectable, NotFoundException, InternalServerErrorException } from '@ne
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
-import { UserDto } from './users.dto';
+import { UserDto } from './dto/dto.user';
 import { FileUploadService } from '../common/services/file-upload.service';
-import { ResponseDto } from '../common/response.dto';
+import { ResponseDto } from '../common/';
 
 @Injectable()
 export class UsersService {

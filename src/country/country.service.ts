@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Country } from './country.entity';
 import { FileUploadService } from '../common/services/file-upload.service';
-import { ResponseDto } from '../common/response.dto';
+import { ResponseDto } from '../common/';
 
 @Injectable()
 export class CountryService {

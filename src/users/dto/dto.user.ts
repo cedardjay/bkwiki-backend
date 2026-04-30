@@ -1,4 +1,4 @@
-import { User } from './users.entity';
+import { User } from '../users.entity';
 
 export class UserDto {
   id: number;
@@ -7,6 +7,7 @@ export class UserDto {
   email: string;
   status: boolean;
 
+  //dto constructor
   static fromEntity(user: User): UserDto {
     const dto = new UserDto();
     dto.id = user.id;

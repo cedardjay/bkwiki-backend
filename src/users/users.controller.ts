@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Patch, Param, Body, UploadedFile, U
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
+import { UpdateUserDto } from './dto/dto.update-user';
 
 @Controller('users')
 export class UsersController {
@@ -14,7 +15,7 @@ export class UsersController {
   }
 
 
-//find by id
+//find user by id
   @Get(':id') 
   findOne(@Param('id') id: number) {
     return this.usersService.findOne(id);
@@ -22,7 +23,7 @@ export class UsersController {
 
 
   @Put('update/:id')
-  update(@Param('id') id: number, @Body() data: Partial<User>) {
+  update(@Param('id') id: number, @Body() data: UpdateUserDto) {
     return this.usersService.update(id, data);
   }
 
@@ -31,6 +32,7 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 
+  //upload user image
   @Patch('image/:id')
   @UseInterceptors(FileInterceptor('image'))
   uploadImage(

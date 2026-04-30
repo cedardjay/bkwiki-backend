@@ -1,7 +1,8 @@
 import { Controller, Patch, UseInterceptors, UploadedFile, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CountryService } from './country.service';
-import { Country } from './country.entity';
+import { CreateCountryDto } from './dto/dto.add-country';
+import { UpdateCountryDto } from './dto/dto.update-country';
 
 @Controller('countries')
 export class CountryController {
@@ -17,7 +18,7 @@ export class CountryController {
     }
 
     @Post('add')
-    create(@Body() data: Partial<Country>) {
+    create(@Body() data: CreateCountryDto) {
         return this.countryService.create(data);
     }
 
@@ -33,8 +34,8 @@ export class CountryController {
     }
 
 
-   @Put(':id/update')
-    update(@Param('id') id: number, @Body() data: Partial<Country>) {
+   @Put('update/:id')
+    update(@Param('id') id: number, @Body() data: UpdateCountryDto) {
         return this.countryService.update(id, data);
     }
 
