@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './users.entity';
 import { UserDto } from './dto/dto.user';
 import { FileUploadService } from '../common/services/file-upload.service';
-import { ResponseDto } from '../common/';
+import { ResponseDto } from '../common/response.dto';
 
 @Injectable()
 export class UsersService {
